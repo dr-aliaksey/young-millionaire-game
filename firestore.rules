@@ -1,0 +1,35 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Правила для пользователей (игроков)
+    match /users/{userId} {
+      // Анонимные пользователи могут создавать и обновлять свои профили
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Правила для карточек выбора - доступ только для чтения всем
+    match /choices/{choiceId} {
+      allow read: if true; // Все могут читать игровые карточки
+      allow write: if false; // Только админы могут изменять (через Firebase Console)
+    }
+    
+    // Правила для персонажей - доступ только для чтения всем
+    match /characters/{characterId} {
+      allow read: if true; // Все могут читать персонажей
+      allow write: if false; // Только админы могут изменять
+    }
+    
+    // Правила для титулов - доступ только для чтения всем
+    match /titles/{titleId} {
+      allow read: if true; // Все могут читать титулы
+      allow write: if false; // Только админы могут изменять
+    }
+    
+    // Правила для общих игровых данных
+    match /game_data/{document} {
+      allow read: if true; // Все могут читать игровую конфигурацию
+      allow write: if false; // Только админы могут изменять
+    }
+  }
+} 

@@ -1,0 +1,12 @@
+{
+  "name": "game-data-uploader",
+  "version": "1.0.0",
+  "description": "Скрипт для загрузки игровых данных в Firestore",
+  "main": "upload_game_data.js",
+  "scripts": {
+    "upload": "node upload_game_data.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  }
+} 
